@@ -23,6 +23,7 @@ public class Common {
         }
         return scanner;
     }
+
     public final static String roomPath = "./src/data/room.bin";
     public final static String customerPath = "./src/data/customer.bin";
     public final static String staffPath = "./src/data/staff.bin";
