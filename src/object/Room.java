@@ -7,6 +7,7 @@ public class Room  implements Serializable {
     private int capacity;
     private Long price;
     private String status;
+    public Room() {}
 
     public Room(String id, int capacity, Long price, String status) {
         this.id = id;

@@ -1,28 +1,32 @@
 package object;
 
-import service.RoomManagementService;
+
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import java.time.LocalTime;
 import java.util.List;
-import java.util.UUID;
+
 
 public class RoomManagement implements Serializable {
     private Customer customer;
     private Staff staff;
     private LocalDate date;
-    private List<Room> roomList;
-    private RoomManagementService roomManagementService;
+    private List<RoomManagementDetail> roomManagementDetailList;
+    private LocalDate startTime;
+    private LocalDate endTime;
+    public RoomManagement() {}
 
-    // Constructor
-    public RoomManagement(Customer customer, Staff staff, LocalDate date, List<Room> roomList, RoomManagementService roomManagementService) {
+    public RoomManagement(Customer customer, Staff staff, LocalDate date, List<RoomManagementDetail> roomManagementDetailList, LocalDate startTime, LocalDate endTime) {
         this.customer = customer;
         this.staff = staff;
         this.date = date;
-        this.roomList = roomList;
-        this.roomManagementService = roomManagementService;
+        this.roomManagementDetailList = roomManagementDetailList;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    // Getters and Setters
+
     public Customer getCustomer() {
         return customer;
     }
@@ -46,35 +50,27 @@ public class RoomManagement implements Serializable {
     public void setDate(LocalDate date) {
         this.date = date;
     }
-
-    public List<Room> getRoomList() {
-        return roomList;
+    public LocalDate getEndTime() {
+        return endTime;
     }
 
-    public void setRoomList(List<Room> roomList) {
-        this.roomList = roomList;
+    public void setEndTime(LocalDate endTime) {
+        this.endTime = endTime;
     }
 
-    // Methods to manage rooms through RoomManagementService
-    public Room findRoomById(String id) {
-        return roomManagementService.findRoomById(id);
+    public LocalDate getStartTime() {
+        return startTime;
     }
 
-    // Methods to manage invoices through RoomManagementService
-    public void createInvoice(Customer customer, Staff staff, List<Room> rooms, double totalAmount) {
-        roomManagementService.createInvoice(customer, staff, rooms, totalAmount);
+    public void setStartTime(LocalDate startTime) {
+        this.startTime = startTime;
+    }
+    public List<RoomManagementDetail> getRoomManagementDetailList() {
+        return roomManagementDetailList;
     }
 
-    public RoomManagementService.InvoiceData findInvoiceById(UUID id) {
-        return roomManagementService.findInvoiceById(id);
-    }
-
-    public boolean deleteInvoiceById(UUID id) {
-        return roomManagementService.deleteInvoiceById(id);
-    }
-
-    public List<RoomManagementService.InvoiceData> getAllInvoices() {
-        return roomManagementService.getAllInvoices();
+    public void setRoomManagementDetailList(List<RoomManagementDetail> roomManagementDetailList) {
+        this.roomManagementDetailList = roomManagementDetailList;
     }
 
     // Override toString to print invoice details
@@ -87,7 +83,7 @@ public class RoomManagement implements Serializable {
         sb.append("Date: ").append(date).append("\n");
         sb.append("Rooms:\n");
 
-        for (Room room : roomList) {
+        for (Room room : roomManagementDetailList) {
             sb.append(" - Room ID: ").append(room.getId())
                     .append(", Capacity: ").append(room.getCapacity())
                     .append(", Price: ").append(room.getPrice())
@@ -96,5 +92,4 @@ public class RoomManagement implements Serializable {
 
         return sb.toString();
     }
-    String url = "./src/data/room-management.bin";
 }

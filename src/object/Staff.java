@@ -7,6 +7,11 @@ public class Staff extends User {
         super(id, name);
     }
 
+    public Staff() {
+        super();
+    }
+
+
 
     @Override
     public String toString() {

@@ -2,6 +2,8 @@ package other;
 
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadWriteObject {
 
@@ -49,19 +51,21 @@ public class ReadWriteObject {
     }
 
     // đọc object từ file
-    public void read(String filePath) {
+    public <T> List<T> read(String filePath, Class<T> clazz) {
         FileInputStream fis = null;
         ObjectInputStream inStream = null;
+        List<T> objectList = new ArrayList<>();
         try {
             fis = new FileInputStream(filePath);
             inStream = new ObjectInputStream(fis);
-            Object s;
+            Object o;
             int i = 0;
             while (true) {
-                s = inStream.readObject();
-                System.out.println(++i + ": " + s.toString());
+                o = inStream.readObject();
+                objectList.add(clazz.cast(o));
             }
         } catch (ClassNotFoundException e) {
+
         } catch (IOException e) {
         } finally {
             if (fis != null) {
@@ -81,6 +85,7 @@ public class ReadWriteObject {
             }
 
         }
+        return objectList;
     }
 
     // kiểm tra file có object lưu vào hay chưa

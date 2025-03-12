@@ -1,5 +1,6 @@
 package repo;
 
+import constant.Common;
 import object.Room;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +9,12 @@ public class RoomRepo {
     private List<Room> rooms;
 
     public RoomRepo() {
-        rooms = new ArrayList<>();
+        rooms = Common.getReadWriteObject().read(Common.roomPath, Room.class);
     }
 
     public void saveRoom(Room room) {
+        Common.getReadWriteObject().write(room, Common.roomPath);
         rooms.add(room);
-        System.out.println("Room saved successfully!");
     }
 
     public Room findRoomById(String id) {
@@ -37,5 +38,4 @@ public class RoomRepo {
     public List<Room> getAllRooms() {
         return rooms;
     }
-String url = "./src/data/room.bin";
 }

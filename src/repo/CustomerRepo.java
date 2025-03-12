@@ -1,6 +1,9 @@
 package repo;
 
+import constant.Common;
 import object.Customer;
+import object.Room;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -9,12 +12,12 @@ public class CustomerRepo {
     private List<Customer> customers;
 
     public CustomerRepo() {
-        customers = new ArrayList<>();
+        customers = Common.getReadWriteObject().read(Common.customerPath, Customer.class);
     }
 
     public void saveCustomer(Customer customer) {
+        Common.getReadWriteObject().write(customer,Common.customerPath);
         customers.add(customer);
-        System.out.println("Customer saved successfully!");
     }
 
     public Customer findCustomerById(UUID id) {
