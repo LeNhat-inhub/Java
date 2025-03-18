@@ -72,6 +72,9 @@ public class RoomManagement implements Serializable {
     public void setRoomManagementDetailList(List<RoomManagementDetail> roomManagementDetailList) {
         this.roomManagementDetailList = roomManagementDetailList;
     }
+    public void addRoomManagementDetailList(List<RoomManagementDetail> roomManagementDetaillist) {
+        this.roomManagementDetailList.addAll(roomManagementDetaillist);
+    }
 
     // Override toString to print invoice details
     @Override
@@ -83,11 +86,11 @@ public class RoomManagement implements Serializable {
         sb.append("Date: ").append(date).append("\n");
         sb.append("Rooms:\n");
 
-        for (Room room : roomManagementDetailList) {
-            sb.append(" - Room ID: ").append(room.getId())
-                    .append(", Capacity: ").append(room.getCapacity())
-                    .append(", Price: ").append(room.getPrice())
-                    .append(", Status: ").append(room.getStatus()).append("\n");
+        for (RoomManagementDetail roomManagementDetail : roomManagementDetailList) {
+            sb.append(" - Room ID: ").append(roomManagementDetail.getRoom().getId())
+                    .append(", Capacity: ").append(roomManagementDetail.getRoom().getCapacity())
+                    .append(", Price: ").append(roomManagementDetail.getInvoicePrice())
+                    .append("\n");
         }
 
         return sb.toString();

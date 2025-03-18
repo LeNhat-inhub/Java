@@ -19,9 +19,9 @@ public class StaffRepo {
         staffs.add(staff);
     }
 
-    public Staff findStaffById(UUID id) {
+    public Staff findStaffById(String id) {
         for (Staff staff : staffs) {
-            if (staff.getId().equals(id)) {
+            if (staff.getIdentityNumber().equals(id)) {
                 return staff;
             }
         }

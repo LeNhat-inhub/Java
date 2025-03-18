@@ -17,7 +17,7 @@ public class StaffService {
         staffRepo.saveStaff(staff);
         return staff;
     }
-    public Staff findStaffById(UUID id) {
+    public Staff findStaffById(String id) {
         return staffRepo.findStaffById(id);
     }
 }

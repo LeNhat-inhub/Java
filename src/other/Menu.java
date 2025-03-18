@@ -31,7 +31,7 @@ public class Menu {
         System.out.println("2. Update Room by ID");
 //        System.out.println("3. Create Customer");
 //        System.out.println("4. Create Staff");
-//        System.out.println("5. Create Invoice");
+        System.out.println("5. Create Invoice");
 //        System.out.println("6. Find Invoice by ID");
 //        System.out.println("7. Delete Invoice by ID");
 //        System.out.println("8. Show All Invoices");
@@ -60,8 +60,10 @@ public class Menu {
 //
 //                    break;
 //
-//                case 5:
-//                    break;
+                case 5:
+                    roomManagementController.chooseRoom(sc);
+                    roomManagementController.createInvoice(sc);
+                    break;
 //                case 6:
 //                    break;
 //

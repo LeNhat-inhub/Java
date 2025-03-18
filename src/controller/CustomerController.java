@@ -34,15 +34,13 @@ public class CustomerController {
         sc.nextLine();
         System.out.println("Enter customer ID: ");
         String id = sc.nextLine();
-        Customer tempCustomer = customerService.findCustomerById(UUID.fromString(id));
+        Customer tempCustomer = customerService.findCustomerById(id);
         if (tempCustomer != null) {
             System.out.println("Enter new customer name: ");
             tempCustomer.setName(sc.nextLine());
             System.out.println("Enter new customer phone: ");
             tempCustomer.setPhone(sc.nextLine());
-            System.out.println("Enter new customer identity number: ");
-            tempCustomer.setIdentityNumber(sc.nextLine());
         }
-        Customer customer = customerService.updateCustomer(UUID.fromString(id));
+        Customer customer = customerService.updateCustomer(id);
     }
 }

@@ -17,14 +17,14 @@ public class CustomerService {
         return customer;
     }
 
-    public Customer updateCustomer(UUID id) {
+    public Customer updateCustomer(String id) {
 
         Customer customer = customerRepo.findCustomerById(id);
         customerRepo.saveCustomer(customer);
         return customer;
     }
 
-    public boolean deleteCustomer(UUID id) {
+    public boolean deleteCustomer(String id) {
         boolean isDeleted = customerRepo.deleteCustomerById(id);
 
         if (isDeleted) {
@@ -36,7 +36,7 @@ public class CustomerService {
         return isDeleted;
     }
 
-    public Customer findCustomerById(UUID id) {
+    public Customer findCustomerById(String id) {
         return customerRepo.findCustomerById(id);
     }
 }

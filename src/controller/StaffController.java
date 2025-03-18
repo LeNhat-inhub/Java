@@ -16,6 +16,8 @@ public class StaffController {
     public void createStaff(Scanner sc) {
         Staff tempStaff = new Staff();
         sc.nextLine();
+        System.out.println("Enter Staff Identity Number: ");
+        tempStaff.setIdentityNumber(sc.nextLine());
         System.out.println("Enter staff name: ");
         tempStaff.setName(sc.nextLine());
         UUID id = UUID.randomUUID();
