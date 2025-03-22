@@ -14,29 +14,39 @@ import java.util.*;
 
 public class RoomManagementService {
     private RoomManagementRepo roomManagementRepo;
+    private RoomManagement roomManagement;
     List<RoomManagement> availableRooms;
     List<RoomManagementDetail> roomManagementDetails;
     List<Room> rooms;
     public RoomManagementService() {
         this.roomManagementRepo = new RoomManagementRepo();
+        this.roomManagement = new RoomManagement();
     }
-
-    public void availableRoomNow () {
-        List<Room> availableRooms = new ArrayList<>(rooms);
-        List<RoomManagementDetail> reserveRoom = new ArrayList<>(roomManagementDetails);
-        List<Room> remainingRooms = new ArrayList<>(availableRooms);
-        for(RoomManagementDetail room : reserveRoom) {
-            if(isExpired()){
-                availableRooms.add(room.getRoom());
-                remainingRooms.remove(room.getRoom());
-            }
-        }
-    }
+//
+//    public void availableRoomNow () {
+//        List<Room> availableRooms = new ArrayList<>(rooms);
+//        List<RoomManagementDetail> reserveRoom = new ArrayList<>(roomManagementDetails);
+//        List<Room> remainingRooms = new ArrayList<>(availableRooms);
+//        for(RoomManagementDetail room : reserveRoom) {
+//            if(isExpired()){
+//                availableRooms.add(room.getRoom());
+//                remainingRooms.remove(room.getRoom());
+//            }
+//        }
+//    }
     public RoomManagement createInvoice(RoomManagement roomManagement) {
+        if (roomManagement.getStartTime().isAfter(roomManagement.getEndTime())) {
+            throw new IllegalArgumentException("Start time must be before end time.");
+        }
         roomManagementRepo.saveRoomManagement(roomManagement);
         return roomManagement;
     }
     public boolean isExpired() {
-        return LocalDate.now().isAfter(availableRooms.getFirst().getEndTime());
+        return LocalDate.now().isAfter(roomManagement.getEndTime());
     }
+    public List<RoomManagement> getAllManagement() {
+        return roomManagementRepo.getAllRoomManagements();
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package object;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class RoomManagementDetail implements Serializable {
     private Room room;
@@ -33,8 +34,22 @@ public class RoomManagementDetail implements Serializable {
     @Override
     public String toString() {
         return "RoomManagementDetail{" +
-                "room=" + room +
+                "room=" + (room != null ? room.toString() : "null") +
                 ", invoicePrice=" + invoicePrice +
                 '}';
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoomManagementDetail that = (RoomManagementDetail) o;
+        return Objects.equals(room, that.room) &&
+                Objects.equals(invoicePrice, that.invoicePrice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(room, invoicePrice);
+    }
+
 }

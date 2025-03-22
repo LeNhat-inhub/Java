@@ -1,7 +1,10 @@
 package service;
 
 import object.Customer;
+import object.Staff;
 import repo.CustomerRepo;
+
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -38,5 +41,8 @@ public class CustomerService {
 
     public Customer findCustomerById(String id) {
         return customerRepo.findCustomerById(id);
+    }
+    public List<Customer> getAllCustomers() {
+        return customerRepo.getAllCustomers();
     }
 }

@@ -30,4 +30,9 @@ public class Common {
     public final static String customerPath = "./src/data/customer.bin";
     public final static String staffPath = "./src/data/staff.bin";
     public final static String roomManagementPath = "./src/data/room-management.bin";
+    public static void clearBuffer(Scanner sc) {
+        if (sc.hasNextLine()) {
+            sc.nextLine();
+        }
+    }
 }

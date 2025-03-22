@@ -27,5 +27,6 @@ public class StaffRepo {
         }
         return null;
     }
+    public List<Staff> getAllStaff() {return staffs;}
 
 }
