@@ -3,8 +3,19 @@ package object;
 import java.util.UUID;
 
 public class Staff extends User {
-    public Staff(UUID id, String name) {
+    private String identityNumber;
+
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
+
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
+    }
+
+    public Staff(UUID id,String identityNumber, String name) {
         super(id, name);
+        this.identityNumber = identityNumber;
     }
 
     public Staff() {
@@ -15,6 +26,6 @@ public class Staff extends User {
 
     @Override
     public String toString() {
-        return "Staff{" + "id=" + getId() + ", name=" + getName() + '}';
+        return "Staff{" + "id=" + getIdentityNumber() + ", name=" + getName() + '}';
     }
 }

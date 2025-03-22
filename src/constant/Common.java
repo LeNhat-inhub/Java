@@ -3,6 +3,7 @@ package constant;
 import object.Customer;
 import other.ReadWriteObject;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,9 +24,15 @@ public class Common {
         }
         return scanner;
     }
+    public final static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public final static String roomPath = "./src/data/room.bin";
     public final static String customerPath = "./src/data/customer.bin";
     public final static String staffPath = "./src/data/staff.bin";
-    public final static String roomManagement = "./src/data/room-management.bin";
+    public final static String roomManagementPath = "./src/data/room-management.bin";
+    public static void clearBuffer(Scanner sc) {
+        if (sc.hasNextLine()) {
+            sc.nextLine();
+        }
+    }
 }

@@ -20,16 +20,16 @@ public class CustomerRepo {
         customers.add(customer);
     }
 
-    public Customer findCustomerById(UUID id) {
+    public Customer findCustomerById(String id) {
         for (Customer customer : customers) {
-            if (customer.getId().equals(id)) {
+            if (customer.getIdentityNumber().equals(id)) {
                 return customer;
             }
         }
         return null;
     }
 
-    public boolean deleteCustomerById(UUID id) {
+    public boolean deleteCustomerById(String id) {
         Customer customer = findCustomerById(id);
         if (customer != null) {
             customers.remove(customer);

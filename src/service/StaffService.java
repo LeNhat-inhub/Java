@@ -1,9 +1,11 @@
 package service;
 
 import object.Customer;
+import object.Room;
 import object.Staff;
 import repo.StaffRepo;
 
+import java.util.List;
 import java.util.UUID;
 
 public class StaffService {
@@ -17,7 +19,10 @@ public class StaffService {
         staffRepo.saveStaff(staff);
         return staff;
     }
-    public Staff findStaffById(UUID id) {
+    public Staff findStaffById(String id) {
         return staffRepo.findStaffById(id);
+    }
+    public List<Staff> getAllStaff() {
+        return staffRepo.getAllStaff();
     }
 }
