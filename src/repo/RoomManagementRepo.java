@@ -2,7 +2,6 @@ package repo;
 
 import constant.Common;
 import object.RoomManagement;
-import object.RoomManagementDetail;
 
 import java.util.List;
 

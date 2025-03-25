@@ -18,52 +18,26 @@ public class RoomManagementController {
     private CustomerController customerController;
     private CustomerService customerService;
     private StaffService staffService;
-    private RoomManagement roomManagement;
-    private Room room;
-    private Customer customer;
-    private Staff staff;
 
     public RoomManagementController() {
         this.roomManagementService = new RoomManagementService();
         this.roomService = new RoomService();
-        this.room = new Room();
         this.customerController = new CustomerController();
         this.customerService = new CustomerService();
         this.staffService = new StaffService();
-        this.staff = new Staff();
-        this.customer = new Customer();
-        this.roomManagement = new RoomManagement();
     }
+    RoomManagement tempRoomManagement = new RoomManagement();
 
 
     public void chooseRoom(Scanner sc) {
         boolean flag = true;
-        List<Room> remainingRooms = roomService.getAllRooms();
-        remainingRooms.forEach(System.out::println);
-        System.out.println("Enter the number of rooms you want to reserve: ");
-        int number = sc.nextInt();
-        if (number <= remainingRooms.size() && number > 0) {
-            for (int i = 0; i < number; i++) {
-                Common.clearBuffer(sc);
-                System.out.println("Enter the room you want to reserve: ");
-                String id = sc.nextLine();
-                Room room = roomService.findRoomById(id);
-                RoomManagementDetail roomManagementDetail = new RoomManagementDetail(room, room.getPrice());
-                roomManagement.addRoomManagementDetail(roomManagementDetail);
+        List<Room> allRooms = roomService.getAllRooms();
+        List<RoomManagementDetail> bookedRooms = roomManagementService.getAllRoomManagementDetails();
 
-                System.out.println(roomManagementDetail);
-                System.out.println("Rooms in Management: " + roomManagement.getRoomManagementDetailList());
+        System.out.println("All Rooms:");
+        allRooms.forEach(System.out::println);
+        Common.clearBuffer(sc);
 
-            }
-        } else {
-            System.out.println("Not enough rooms available");
-            flag = false;
-        }
-    }
-
-    public void createInvoice(Scanner sc) {
-        RoomManagement tempRoomManagement = new RoomManagement();
-        boolean flag = true;
         System.out.println("Enter the start date(dd/MM/yyyy): ");
         LocalDate startDate = null;
         while (startDate == null) {
@@ -87,7 +61,42 @@ public class RoomManagementController {
             }
         }
         tempRoomManagement.setEndTime(endDate);
-        Common.clearBuffer(sc);
+        List<Room> availableRooms = roomManagementService.getAvailableRooms(
+                roomService.getAllRooms(),
+                roomManagementService.getAllRoomManagementDetails(),
+                startDate,
+                endDate
+        );
+        if (availableRooms.isEmpty()) {
+            System.out.println("No rooms available for the selected dates.");
+            return;
+        }else{
+            System.out.println("Already:");
+        }
+        System.out.println("Available Rooms: ");
+        availableRooms.forEach(System.out::println);
+
+        System.out.println("Enter the number of rooms you want to reserve: ");
+        int number = sc.nextInt();
+        if (number <= availableRooms.size() && number > 0) {
+            for (int i = 0; i < number; i++) {
+                Common.clearBuffer(sc);
+                System.out.println("Enter the room you want to reserve: ");
+                String id = sc.nextLine();
+                Room room = roomService.findRoomById(id);
+                RoomManagementDetail roomManagementDetail = new RoomManagementDetail(room, room.getPrice(), startDate, endDate);
+                tempRoomManagement.addRoomManagementDetail(roomManagementDetail);
+                System.out.println("Rooms in Management: " + tempRoomManagement.getRoomManagementDetailList());
+
+            }
+        } else {
+            System.out.println("Not enough rooms available");
+            flag = false;
+        }
+    }
+
+    public void createInvoice(Scanner sc) {
+        boolean flag = true;
 
         System.out.println("Sign up(0)/ sign in(1) your id: ");
         int choice = -1;
@@ -102,7 +111,7 @@ public class RoomManagementController {
             }
         }
         if (choice == 0) {
-            customer = customerController.createCustomer(sc);
+            Customer customer = customerController.createCustomer(sc);
             System.out.println(customer);
             tempRoomManagement.setCustomer(customer);
         } else {
@@ -113,7 +122,7 @@ public class RoomManagementController {
                 customerId = sc.nextLine().trim();
             }
 
-            customer = customerService.findCustomerById(customerId);
+            Customer customer = customerService.findCustomerById(customerId);
             tempRoomManagement.setCustomer(customer);
             if (customer == null) {
                 System.out.println("Customer not found!");
@@ -122,23 +131,26 @@ public class RoomManagementController {
         }
         if (flag) {
             System.out.println("Enter the Staff Identity Number: ");
+            Staff staff;
             String staffId = sc.nextLine();
             while (staffId.isEmpty()) {
                 System.out.print("Staff ID cannot be empty! Enter again: ");
                 staffId = sc.nextLine();
-                Staff staff = staffService.findStaffById(staffId);
-                if (staff == null) {
-                    System.out.println("Staff not found");
-                    flag = false;
-                } else {
-                    tempRoomManagement.setStaff(staff);
-                    tempRoomManagement.setDate(LocalDate.now());
-
-                    RoomManagement roomManagement = roomManagementService.createInvoice(tempRoomManagement);
-                    System.out.println("Successfully created");
-
-                }
             }
+            staff = staffService.findStaffById(staffId);
+            System.out.println(staff);
+            if (staff == null) {
+                System.out.println("Staff not found");
+                flag = false;
+            } else {
+                tempRoomManagement.setStaff(staff);
+            }
+
+            tempRoomManagement.setDate(LocalDate.now());
+
+            RoomManagement roomManagement = roomManagementService.createInvoice(tempRoomManagement);
+            System.out.println("Successfully created");
+            System.out.println(roomManagement);
         }
     }
 

@@ -24,6 +24,7 @@ public class RoomController {
         System.out.println("Enter Room Price:");
         tempRoom.setPrice(sc.nextLong());
         sc.nextLine();
+        tempRoom.setStatus("Available");
         Room room = roomService.createRoom(tempRoom);
         System.out.println("Room ID: " + room.getId() + " is created");
     }

@@ -2,11 +2,8 @@ package repo;
 
 import constant.Common;
 import object.Customer;
-import object.Room;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class CustomerRepo {
     private List<Customer> customers;

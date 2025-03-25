@@ -1,12 +1,9 @@
 package repo;
 
 import constant.Common;
-import object.Customer;
 import object.Staff;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class StaffRepo {
     private List<Staff> staffs;

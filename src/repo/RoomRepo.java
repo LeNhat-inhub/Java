@@ -2,7 +2,6 @@ package repo;
 
 import constant.Common;
 import object.Room;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoomRepo {

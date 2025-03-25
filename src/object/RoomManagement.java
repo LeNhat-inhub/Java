@@ -1,10 +1,8 @@
 package object;
 
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,17 +14,10 @@ public class RoomManagement implements Serializable {
     private LocalDate startTime;
     private LocalDate endTime;
     private RoomManagementDetail roomManagementDetail;
-    private List<RoomManagementDetail> roomManagementDetailList = new ArrayList<>();
+    private List<RoomManagementDetail> roomManagementDetailList;
 
     public RoomManagement() {}
 
-    public RoomManagementDetail getRoomManagementDetail() {
-        return roomManagementDetail;
-    }
-
-    public void setRoomManagementDetail(RoomManagementDetail roomManagementDetail) {
-        this.roomManagementDetail = roomManagementDetail;
-    }
 
     public RoomManagement(Customer customer, Staff staff, LocalDate date, List<RoomManagementDetail> roomManagementDetailList, LocalDate startTime, LocalDate endTime, RoomManagementDetail roomManagementDetail) {
         this.customer = customer;
@@ -77,6 +68,21 @@ public class RoomManagement implements Serializable {
     public void setStartTime(LocalDate startTime) {
         this.startTime = startTime;
     }
+
+    public RoomManagementDetail getRoomManagementDetail() {
+        return roomManagementDetail;
+    }
+
+    public void setRoomManagementDetail(RoomManagementDetail roomManagementDetail) {
+        this.roomManagementDetail = roomManagementDetail;
+    }
+
+    public void setRoomManagementDetailList(List<RoomManagementDetail> roomManagementDetailList) {
+        this.roomManagementDetailList = roomManagementDetailList;
+    }
+    public void addRoomManagementDetailList(List<RoomManagementDetail> roomManagementDetaillist) {
+        this.roomManagementDetailList.addAll(roomManagementDetaillist);
+    }
     public List<RoomManagementDetail> getRoomManagementDetailList() {
         if (roomManagementDetailList == null) {
             roomManagementDetailList = new ArrayList<>();
@@ -89,13 +95,6 @@ public class RoomManagement implements Serializable {
         }
         roomManagementDetailList.add(detail);
     }
-
-    public void setRoomManagementDetailList(List<RoomManagementDetail> roomManagementDetailList) {
-        this.roomManagementDetailList = roomManagementDetailList;
-    }
-    public void addRoomManagementDetailList(List<RoomManagementDetail> roomManagementDetaillist) {
-        this.roomManagementDetailList.addAll(roomManagementDetaillist);
-    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -103,9 +102,9 @@ public class RoomManagement implements Serializable {
         sb.append("Customer: ").append(customer.getName()).append("\n");
         sb.append("Staff: ").append(staff.getName()).append("\n");
         sb.append("Date: ").append(date).append("\n");
-        sb.append("Rooms:\n");
         sb.append("Start Time: ").append(startTime).append("\n");
         sb.append("End Time: ").append(endTime).append("\n");
+        sb.append("Rooms:\n");
 
         if (roomManagementDetailList != null) {
             for (RoomManagementDetail roomManagementDetail : roomManagementDetailList) {
