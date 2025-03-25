@@ -1,13 +1,10 @@
 package other;
 
-import constant.Common;
 import controller.CustomerController;
 import controller.RoomController;
 import controller.RoomManagementController;
 import controller.StaffController;
-import object.Room;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static constant.Common.scanner;
@@ -30,12 +27,12 @@ public class Menu {
         System.out.println("1. Add Room");
         System.out.println("2. Update Room by ID");
 //        System.out.println("3. Create Customer");
-//        System.out.println("4. Create Staff");
-//        System.out.println("5. Create Invoice");
+        System.out.println("4. Create Staff");
+        System.out.println("5. Create Management");
 //        System.out.println("6. Find Invoice by ID");
-//        System.out.println("7. Delete Invoice by ID");
-//        System.out.println("8. Show All Invoices");
-//        System.out.println("9. Show all Customers");
+        System.out.println("7. Show all Staff");
+        System.out.println("8. Show All Invoices");
+        System.out.println("9. Show all Customers");
         System.out.println("10. Show all Rooms");
         System.out.println("11. Exit");
         return sc.nextInt();
@@ -52,30 +49,26 @@ public class Menu {
                 case 2:
                     roomController.updateRoom(sc);
                     break;
-//
 //                case 3:
 //                    break;
-//
-//                case 4:
-//
-//                    break;
-//
-//                case 5:
-//                    break;
+                case 4:
+                    staffController.createStaff(sc);
+                    break;
+                case 5:
+                    roomManagementController.chooseRoom(sc);
+                    roomManagementController.createInvoice(sc);
+                    break;
 //                case 6:
 //                    break;
-//
-//                case 7:
-
-//                    break;
-//
-//                case 8:
-
-//                    break;
-//
-//                case 9:
-
-//                    break;
+                case 7:
+                    staffController.getAllStaff();
+                    break;
+                case 8:
+                    roomManagementController.getAllManagement();
+                    break;
+                case 9:
+                    customerController.getAllCustomers();
+                    break;
 
                 case 10:
                     roomController.getAllRooms();

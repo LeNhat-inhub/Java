@@ -10,7 +10,7 @@ public class Customer extends User {
         super();
     }
 
-    public Customer(UUID id, String phone, String identityNumber, String name) {
+    public Customer( String identityNumber, String phone, UUID id, String name) {
         this.identityNumber = identityNumber;
         this.phone = phone;
         super(id, name);
